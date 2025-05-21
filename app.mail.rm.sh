@@ -1,6 +1,6 @@
 #!/usr/bin/env -S bash -euo pipefail
 # -------------------------------------------------------------------------------------------------------------------- #
-# MAIL: REMOVING
+# MAIL: REMOVE
 # Script for scanning and deleting files by content.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
@@ -31,12 +31,6 @@ function _err() {
   echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
 }
 
-function cmd_check() {
-  for i in 'rg'; do
-    [[ ! -x "$( command -v "${i}" )" ]] && { _err "'${i}' is not installed!"; } || return 0
-  done
-}
-
 function remove() {
   [[ ! -d "${DATA}" ]] && { _err "'${DATA}' not found!"; }
   while IFS= read -rd '' file; do
@@ -44,4 +38,4 @@ function remove() {
   done < <( find "${DATA}" -type 'f' -mtime "${DAYS}" -print0 )
 }
 
-function main() { cmd_check && remove; }; main "$@"
+function main() { remove; }; main "$@"
