@@ -1,7 +1,7 @@
 #!/usr/bin/env -S bash -euo pipefail
 # -------------------------------------------------------------------------------------------------------------------- #
 # MAIL: REMOVE
-# Script for scanning and deleting files by content.
+# Scanning and deleting emails by content.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
 # @author     Kai Kimera
@@ -20,7 +20,6 @@ SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )"; readonly SRC_NA
 
 # Parameters.
 DATA="${DATA:?}"; readonly DATA
-DAYS="${DAYS:?}"; readonly DAYS
 SEARCH="${SEARCH:?}"; readonly SEARCH
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -35,7 +34,7 @@ function remove() {
   [[ ! -d "${DATA}" ]] && { _err "'${DATA}' not found!"; }
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
-  done < <( find "${DATA}" -type 'f' -mtime "${DAYS}" -print0 )
+  done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
 }
 
 function main() { remove; }; main "$@"
