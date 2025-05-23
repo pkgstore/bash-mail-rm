@@ -4,7 +4,7 @@
 # Scanning and deleting emails by content.
 # -------------------------------------------------------------------------------------------------------------------- #
 # @package    Bash
-# @author     Kai Kimera
+# @author     Kai Kimera <mail@kai.kim>
 # @license    MIT
 # @version    0.1.0
 # @link
