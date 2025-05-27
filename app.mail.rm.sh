@@ -12,19 +12,13 @@
 
 (( EUID != 0 )) && { echo >&2 'This script should be run as root!'; exit 1; }
 
-# Sources.
 SRC_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P )"; readonly SRC_DIR
 SRC_NAME="$( basename "$( readlink -f "${BASH_SOURCE[0]}" )" )"; readonly SRC_NAME
 # shellcheck source=/dev/null
 . "${SRC_DIR}/${SRC_NAME%.*}.conf"
 
-# Parameters.
 DATA="${DATA:?}"; readonly DATA
 SEARCH="${SEARCH:?}"; readonly SEARCH
-
-# -------------------------------------------------------------------------------------------------------------------- #
-# -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
-# -------------------------------------------------------------------------------------------------------------------- #
 
 function _err() {
   echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
