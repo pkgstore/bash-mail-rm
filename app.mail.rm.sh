@@ -41,4 +41,6 @@ function remove() {
   done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
 }
 
-function main() { remove; }; main "$@"
+function main() {
+  remove
+}; main "$@"
