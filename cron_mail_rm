@@ -2,4 +2,4 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOME=/root
 
-0 4 * * * root "${HOME}/apps/mail/app.mail.rm.sh" > /dev/null 2>&1
+0 4 * * * root "${HOME}/apps/mail/app_mail_rm.sh" > /dev/null 2>&1
