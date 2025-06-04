@@ -1,4 +1,4 @@
-#!/usr/bin/env -S bash -euo pipefail
+#!/usr/bin/env -S bash -eu
 # -------------------------------------------------------------------------------------------------------------------- #
 # MAIL: REMOVE
 # Scanning and deleting emails by content.
@@ -35,7 +35,7 @@ function _err() {
 }
 
 function remove() {
-  [[ ! -d "${DATA}" ]] && { _err "'${DATA}' not found!"; }
+  [[ ! -d "${DATA}" ]] && _err "'${DATA}' not found!"
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
   done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
