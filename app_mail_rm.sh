@@ -31,7 +31,7 @@ SEARCH="${SEARCH:?}"; readonly SEARCH
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function _err() {
-  echo >&2 "[$( date +'%Y-%m-%dT%H:%M:%S%z' )]: $*"; exit 1
+  echo >&2 "[$( date '+%FT%H:%M:%S%z' )]: $*"; exit 1
 }
 
 function remove() {
