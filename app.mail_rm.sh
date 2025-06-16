@@ -34,7 +34,7 @@ function _err() {
   echo >&2 "[$( date '+%FT%H:%M:%S%z' )]: $*"; exit 1
 }
 
-function remove() {
+function mail_remove() {
   [[ ! -d "${DATA}" ]] && _err "'${DATA}' not found!"
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
@@ -42,5 +42,5 @@ function remove() {
 }
 
 function main() {
-  remove
+  mail_remove
 }; main "$@"
