@@ -1,0 +1,16 @@
+{
+  "file": [
+    {
+      "name": "app.mail_rm.conf",
+      "path": "/root/apps/mail"
+    },
+    {
+      "name": "app.mail_rm.sh",
+      "path": "/root/apps/mail"
+    },
+    {
+      "name": "job.mail_rm",
+      "path": "/root/apps/mail"
+    }
+  ]
+}
