@@ -31,7 +31,7 @@ SEARCH="${SEARCH:?}"; readonly SEARCH
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function _error() {
-  echo >&2 "[$( date '+%FT%H:%M:%S%z' )]: $*"; exit 1
+  echo >&2 "[$( date '+%FT%T%z' )]: $*"; exit 1
 }
 
 function mail_remove() {
