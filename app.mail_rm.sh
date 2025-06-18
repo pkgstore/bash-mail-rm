@@ -30,12 +30,12 @@ SEARCH="${SEARCH:?}"; readonly SEARCH
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function _err() {
+function _error() {
   echo >&2 "[$( date '+%FT%H:%M:%S%z' )]: $*"; exit 1
 }
 
 function mail_remove() {
-  [[ ! -d "${DATA}" ]] && _err "'${DATA}' not found!"
+  [[ ! -d "${DATA}" ]] && _error "'${DATA}' not found!"
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
   done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
