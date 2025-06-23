@@ -30,12 +30,43 @@ SEARCH="${SEARCH:?}"; readonly SEARCH
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function _error() {
-  echo >&2 "[$( date '+%FT%T%z' )]: $*"; exit 1
+function _host() {
+  local type; type="${1}"
+
+  case "${type}" in
+    'f') hostname -f ;;
+    'i') hostname -I ;;
+    *) return 1 ;;
+  esac
+}
+
+function _date() {
+  local type; type="${1}"
+
+  case "${type}" in
+    'd') date -u '+%d' ;;
+    'm') date -u '+%m' ;;
+    's') date -u '+%s' ;;
+    't') date -u '+%F.%H-%M-%S' ;;
+    'Y') date -u '+%Y' ;;
+    'z') date '+%FT%T%:z' ;;
+    *) return 1 ;;
+  esac
+}
+
+function _msg() {
+  local type; type="${1}"
+  local msg; msg="$( _date 'z' ) $( _host 'f' ) ${SRC_NAME}: ${2}"
+
+  case "${type}" in
+    'error') echo "${msg}" >&2; exit 1 ;;
+    'success') echo "${msg}" ;;
+    *) return 1 ;;
+  esac
 }
 
 function mail_remove() {
-  [[ ! -d "${DATA}" ]] && _error "'${DATA}' not found!"
+  [[ ! -d "${DATA}" ]] && _msg 'error' "'${DATA}' not found!"
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
   done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
