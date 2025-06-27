@@ -30,33 +30,9 @@ SEARCH="${SEARCH:?}"; readonly SEARCH
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function _host() {
-  local type; type="${1}"
-
-  case "${type}" in
-    'f') hostname -f ;;
-    'i') hostname -I ;;
-    *) return 1 ;;
-  esac
-}
-
-function _date() {
-  local type; type="${1}"
-
-  case "${type}" in
-    'd') date -u '+%d' ;;
-    'm') date -u '+%m' ;;
-    's') date -u '+%s' ;;
-    't') date -u '+%F.%H-%M-%S' ;;
-    'Y') date -u '+%Y' ;;
-    'z') date '+%FT%T%:z' ;;
-    *) return 1 ;;
-  esac
-}
-
 function _msg() {
   local type; type="${1}"
-  local msg; msg="$( _date 'z' ) $( _host 'f' ) ${SRC_NAME}: ${2}"
+  local msg; msg="$( date '+%FT%T%:z' ) $( hostname -f ) ${SRC_NAME}: ${2}"
 
   case "${type}" in
     'error') echo "${msg}" >&2; exit 1 ;;
