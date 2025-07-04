@@ -27,25 +27,19 @@ DATA="${DATA:?}"; readonly DATA
 SEARCH="${SEARCH:?}"; readonly SEARCH
 
 # Variables.
+LOG_TS="$( date '+%FT%T%:z' ) $( hostname -f ) ${SRC_NAME}"
 LOG="${SRC_DIR}/log.mail_rm"
 
 # -------------------------------------------------------------------------------------------------------------------- #
 # -----------------------------------------------------< SCRIPT >----------------------------------------------------- #
 # -------------------------------------------------------------------------------------------------------------------- #
 
-function _msg() {
-  local type; type="${1}"
-  local msg; msg="$( date '+%FT%T%:z' ) $( hostname -f ) ${SRC_NAME}: ${2}"
-
-  case "${type}" in
-    'error') echo "${msg}" >&2; exit 1 ;;
-    'success') echo "${msg}" ;;
-    *) return 1 ;;
-  esac
+function _error() {
+  echo "${LOG_TS}: $*" >&2; exit 1
 }
 
 function mail_remove() {
-  [[ ! -d "${DATA}" ]] && _msg 'error' "'${DATA}' not found!"
+  [[ ! -d "${DATA}" ]] && _error "'${DATA}' not found!"
   while IFS= read -rd '' file; do
     rg -l0 --hidden "${SEARCH}" "${file}" | xargs -0 rm -f --
   done < <( find "${DATA}" -type 'f' -mtime "-${DAYS:-7}" -print0 )
