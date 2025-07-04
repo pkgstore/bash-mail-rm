@@ -27,7 +27,7 @@ DATA="${DATA:?}"; readonly DATA
 SEARCH="${SEARCH:?}"; readonly SEARCH
 
 # Variables.
-LOG_TS="$( date '+%FT%T%:z' ) $( hostname -f ) ${SRC_NAME}"
+META="$( date '+%FT%T%:z' ) $( hostname -f ) ${SRC_NAME}"
 LOG="${SRC_DIR}/log.mail_rm"
 
 # -------------------------------------------------------------------------------------------------------------------- #
@@ -35,7 +35,7 @@ LOG="${SRC_DIR}/log.mail_rm"
 # -------------------------------------------------------------------------------------------------------------------- #
 
 function _error() {
-  echo "${LOG_TS}: $*" >&2; exit 1
+  echo "${META}: $*" >&2; exit 1
 }
 
 function mail_remove() {
