@@ -10,4 +10,4 @@ curl -sL 'https://raw.githubusercontent.com/pkgstore/bash-install/refs/heads/mai
 
 ## Resources
 
-- [Documentation (RU)](https://lib.onl/)
+- [Documentation (RU)](https://libsys.ru/)
